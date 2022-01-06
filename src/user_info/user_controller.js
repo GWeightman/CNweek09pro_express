@@ -3,6 +3,7 @@ const User = require("./user_model")
 exports.add_user = async (req, res) => {
     try {
         const user_entry = await User.create(req.body)
+        const token = await user_entry.generate_authtoken()
         res.status(201).send({ message: "Successfully added", user_entry })
     } catch (error) {
         console.log(error)
